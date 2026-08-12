@@ -923,58 +923,94 @@ body {
   box-shadow: inset 0 0 15px rgba(51, 255, 102, 0.03);
 }
 
-/* Audio wave rings when playing */
+/* Equalizer bars - bottom to top fill */
 .speaker-grille.playing::before {
   content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  border: 1px solid rgba(51, 255, 102, 0.15);
-  animation: audioRing1 1.5s ease-out infinite;
-  z-index: 2;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  z-index: 3;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(51, 255, 102, 0.25) 0px,
+    rgba(51, 255, 102, 0.15) 2px,
+    transparent 2px,
+    transparent 5px,
+    rgba(6, 182, 212, 0.2) 5px,
+    rgba(6, 182, 212, 0.12) 7px,
+    transparent 7px,
+    transparent 10px
+  );
+  animation: eqFill 1.8s ease-in-out infinite;
+  opacity: 0.8;
 }
 
 .speaker-grille.playing::after {
   content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  border: 1px solid rgba(232, 156, 32, 0.12);
-  animation: audioRing2 1.5s ease-out infinite 0.5s;
-  z-index: 2;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  z-index: 3;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 3px,
+    rgba(255, 140, 26, 0.15) 3px,
+    rgba(255, 140, 26, 0.08) 5px,
+    transparent 5px,
+    transparent 8px,
+    rgba(168, 85, 247, 0.12) 8px,
+    rgba(168, 85, 247, 0.06) 10px,
+    transparent 10px,
+    transparent 12px
+  );
+  animation: eqFill2 1.4s ease-in-out infinite 0.3s;
+  opacity: 0.7;
 }
 
-@keyframes audioRing1 {
+@keyframes eqFill {
   0% { 
-    width: 20px; height: 20px; 
-    opacity: 0.8;
-    border-color: rgba(51, 255, 102, 0.25);
+    clip-path: inset(100% 0 0 0);
+  }
+  30% { 
+    clip-path: inset(20% 0 0 0);
+  }
+  50% { 
+    clip-path: inset(40% 0 0 0);
+  }
+  70% { 
+    clip-path: inset(10% 0 0 0);
+  }
+  85% { 
+    clip-path: inset(50% 0 0 0);
   }
   100% { 
-    width: 90%; height: 90%; 
-    opacity: 0;
-    border-color: rgba(51, 255, 102, 0);
+    clip-path: inset(100% 0 0 0);
   }
 }
 
-@keyframes audioRing2 {
+@keyframes eqFill2 {
   0% { 
-    width: 15px; height: 15px; 
-    opacity: 0.6;
-    border-color: rgba(232, 156, 32, 0.2);
+    clip-path: inset(100% 0 0 0);
+  }
+  25% { 
+    clip-path: inset(30% 0 0 0);
+  }
+  45% { 
+    clip-path: inset(60% 0 0 0);
+  }
+  65% { 
+    clip-path: inset(15% 0 0 0);
+  }
+  80% { 
+    clip-path: inset(45% 0 0 0);
   }
   100% { 
-    width: 80%; height: 80%; 
-    opacity: 0;
-    border-color: rgba(232, 156, 32, 0);
+    clip-path: inset(100% 0 0 0);
   }
 }
 
