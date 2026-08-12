@@ -6,8 +6,8 @@
 const RADIO_CONFIG = {
   playlists: [
     { name: "90's Bollywood Hits", url: "https://music.youtube.com/playlist?list=PLeatb7hupNV_AWUl_7ttbsKeCQh8tF5N4" },
-    { name: "Bollywood Retro", url: "https://music.youtube.com/playlist?list=RDCLAK5uy_l6TnLH20Ir4P2cfx1DNSxaZiea49NmIKY" },
-    { name: "90s Bollywood", url: "https://music.youtube.com/playlist?list=RDCLAK5uy_kNNx8o3LyD3XF_wKmbZZRMsdiYpo5GjrM" }
+    { name: "Bollywood Retro", url: "https://music.youtube.com/playlist?list=RDCLAK5uy_l6TnLH20Ir4P2cfx1DNSxaZiea49NmIKY" }
+    // { name: "90s Bollywood", url: "https://music.youtube.com/playlist?list=RDCLAK5uy_kNNx8o3LyD3XF_wKmbZZRMsdiYpo5GjrM" }
   ]
 };
 
