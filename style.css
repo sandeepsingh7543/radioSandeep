@@ -83,32 +83,30 @@ body {
   align-items: center;
   justify-content: center;
   padding: 32px 16px;
-  /* Dark textured wall base */
-  background: #080d12;
+  /* Background: WebP image with CSS fallback */
+  background-color: #080d12;
+  background-image: url('bg.webp');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   overflow: hidden;
 }
 
-/* Textured wall effect */
+/* Dark overlay for text readability + warm cinematic mood */
 .scene::before {
   content: '';
   position: absolute;
   inset: 0;
   background:
-    /* Blue-teal spotlight from top center */
-    radial-gradient(ellipse at 50% 10%, rgba(20, 80, 120, 0.35) 0%, transparent 45%),
-    /* Warm lantern glow bottom-left */
-    radial-gradient(circle at 15% 85%, rgba(200, 120, 30, 0.15) 0%, transparent 20%),
-    radial-gradient(circle at 15% 85%, rgba(255, 160, 40, 0.08) 0%, transparent 10%),
-    /* Hanging lamp glow right */
-    radial-gradient(circle at 85% 45%, rgba(200, 130, 40, 0.12) 0%, transparent 15%),
-    radial-gradient(circle at 85% 45%, rgba(255, 170, 50, 0.05) 0%, transparent 8%),
-    /* Wall texture - patchy oxidized metal/plaster */
-    radial-gradient(ellipse at 30% 40%, rgba(15, 50, 70, 0.2) 0%, transparent 30%),
-    radial-gradient(ellipse at 70% 30%, rgba(10, 45, 65, 0.15) 0%, transparent 25%),
-    radial-gradient(ellipse at 55% 60%, rgba(60, 40, 15, 0.08) 0%, transparent 20%),
-    radial-gradient(ellipse at 20% 50%, rgba(80, 50, 20, 0.06) 0%, transparent 18%),
-    /* Dark base gradient */
-    linear-gradient(180deg, #0a1520 0%, #080d12 40%, #060808 70%, #040506 100%);
+    /* Blue-teal spotlight from top */
+    radial-gradient(ellipse at 50% 10%, rgba(20, 80, 120, 0.2) 0%, transparent 45%),
+    /* Warm glow bottom-left (lantern) */
+    radial-gradient(circle at 15% 85%, rgba(200, 120, 30, 0.1) 0%, transparent 20%),
+    /* Warm glow right (hanging lamp) */
+    radial-gradient(circle at 85% 45%, rgba(200, 130, 40, 0.08) 0%, transparent 15%),
+    /* Dark overlay */
+    rgba(5, 8, 10, 0.4);
   pointer-events: none;
   z-index: 1;
 }
@@ -120,53 +118,30 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 35%;
-  background:
-    /* Blue reflection on floor from top light */
-    radial-gradient(ellipse at 50% 0%, rgba(15, 60, 90, 0.15) 0%, transparent 60%),
-    /* Floor surface - darker, slightly reflective */
-    linear-gradient(180deg, rgba(8, 15, 20, 0.8) 0%, rgba(4, 6, 8, 0.95) 100%);
+  height: 30%;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
   pointer-events: none;
   z-index: 1;
 }
 
-/* Wall texture noise overlay */
+/* Extra ambient warm light overlay */
 .ambient-warm {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 2;
-  opacity: 0.4;
   background:
-    /* Rust/patina patches */
-    radial-gradient(ellipse at 25% 65%, rgba(80, 45, 15, 0.15) 0%, transparent 12%),
-    radial-gradient(ellipse at 60% 75%, rgba(60, 35, 10, 0.1) 0%, transparent 10%),
-    radial-gradient(ellipse at 75% 55%, rgba(50, 30, 10, 0.08) 0%, transparent 8%),
-    radial-gradient(ellipse at 40% 30%, rgba(70, 40, 15, 0.06) 0%, transparent 15%),
-    /* Texture grain */
-    repeating-conic-gradient(
-      rgba(255, 255, 255, 0.003) 0deg,
-      transparent 1deg,
-      transparent 3deg,
-      rgba(0, 0, 0, 0.01) 3deg,
-      rgba(0, 0, 0, 0.01) 4deg
-    );
+    radial-gradient(ellipse at 15% 80%, rgba(180, 100, 20, 0.06) 0%, transparent 18%),
+    radial-gradient(ellipse at 85% 45%, rgba(180, 110, 30, 0.04) 0%, transparent 12%);
 }
 
-/* Dark vignette edges */
+/* Vignette */
 .table-surface {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 2;
-  background:
-    /* Vignette */
-    radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.6) 100%),
-    /* Extra dark corners */
-    radial-gradient(ellipse at 0% 0%, rgba(0, 0, 0, 0.3) 0%, transparent 30%),
-    radial-gradient(ellipse at 100% 0%, rgba(0, 0, 0, 0.25) 0%, transparent 30%),
-    radial-gradient(ellipse at 0% 100%, rgba(0, 0, 0, 0.35) 0%, transparent 25%),
-    radial-gradient(ellipse at 100% 100%, rgba(0, 0, 0, 0.3) 0%, transparent 25%);
+  background: radial-gradient(ellipse at center, transparent 45%, rgba(0, 0, 0, 0.5) 100%);
 }
 
 /* === RADIO CABINET === */
@@ -738,15 +713,18 @@ body {
 }
 
 /* === YOUTUBE PLAYER (tiny, technically visible for browser policy) === */
-.yt-hidden {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  pointer-events: none;
+.yt-behind-grille {
+  position: absolute;
+  inset: 0;
   z-index: -1;
+  overflow: hidden;
+}
+
+.yt-behind-grille iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  opacity: 0.01;
 }
 
 /* === PROGRESS STRIP === */
