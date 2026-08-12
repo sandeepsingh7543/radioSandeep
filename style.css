@@ -45,7 +45,7 @@
   --table-dark: #120c06;
   --table-mid: #1e1408;
 
-  --radio-width: clamp(350px, 78vw, 720px);
+  --radio-width: clamp(320px, 70vw, 650px);
   --btn-size: 44px;
   --play-size: 56px;
 }
@@ -102,56 +102,51 @@ body {
   align-items: center;
   justify-content: center;
   padding: 32px 16px;
-  /* Background: WebP image with CSS fallback */
+  /* Background image - responsive cover */
   background-color: #080d12;
-  background-image: url('bg.webp');
+  background-image: url('assets/bg.webp');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  background-attachment: fixed;
   overflow: hidden;
 }
 
-/* Dark overlay for text readability + warm cinematic mood */
+/* Subtle overlay to blend radio with background */
 .scene::before {
   content: '';
   position: absolute;
   inset: 0;
   background:
-    /* Blue-teal spotlight from top */
-    radial-gradient(ellipse at 50% 10%, rgba(20, 80, 120, 0.2) 0%, transparent 45%),
-    /* Warm glow bottom-left (lantern) */
-    radial-gradient(circle at 15% 85%, rgba(200, 120, 30, 0.1) 0%, transparent 20%),
-    /* Warm glow right (hanging lamp) */
-    radial-gradient(circle at 85% 45%, rgba(200, 130, 40, 0.08) 0%, transparent 15%),
-    /* Dark overlay */
-    rgba(5, 8, 10, 0.4);
+    /* Center spotlight - keeps radio area slightly brighter */
+    radial-gradient(ellipse at 50% 50%, transparent 20%, rgba(0, 0, 0, 0.3) 70%),
+    /* Subtle warm tint to match vintage mood */
+    rgba(0, 0, 0, 0.15);
   pointer-events: none;
   z-index: 1;
 }
 
-/* Floor reflection */
+/* Bottom fade for seamless floor blend */
 .scene::after {
   content: '';
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 30%;
-  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+  height: 20%;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
   pointer-events: none;
   z-index: 1;
 }
 
-/* Extra ambient warm light overlay */
+/* Ambient warm accents */
 .ambient-warm {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 2;
   background:
-    radial-gradient(ellipse at 15% 80%, rgba(180, 100, 20, 0.06) 0%, transparent 18%),
-    radial-gradient(ellipse at 85% 45%, rgba(180, 110, 30, 0.04) 0%, transparent 12%);
+    radial-gradient(ellipse at 15% 80%, rgba(180, 100, 20, 0.04) 0%, transparent 15%),
+    radial-gradient(ellipse at 85% 45%, rgba(180, 110, 30, 0.03) 0%, transparent 10%);
 }
 
 /* Vignette */
@@ -160,7 +155,7 @@ body {
   inset: 0;
   pointer-events: none;
   z-index: 2;
-  background: radial-gradient(ellipse at center, transparent 45%, rgba(0, 0, 0, 0.5) 100%);
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.4) 100%);
 }
 
 /* === RADIO CABINET === */
@@ -698,15 +693,12 @@ body {
 @keyframes sectionBass {
   0%, 100% { 
     box-shadow: none;
-    transform: scale(1);
   }
   30% { 
     box-shadow: 0 0 20px rgba(51, 255, 102, 0.04), inset 0 0 10px rgba(51, 255, 102, 0.02);
-    transform: scale(1.002);
   }
   60% { 
     box-shadow: 0 0 12px rgba(200, 120, 30, 0.03);
-    transform: scale(0.999);
   }
 }
 
@@ -736,7 +728,7 @@ body {
 .speaker-grille {
   position: relative;
   width: 100%;
-  height: clamp(60px, 12vw, 100px);
+  height: 50px;
   border-radius: 3px;
   overflow: hidden;
 }
@@ -768,16 +760,71 @@ body {
   box-shadow: inset 0 0 15px rgba(51, 255, 102, 0.03);
 }
 
+/* Audio wave rings when playing */
+.speaker-grille.playing::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(51, 255, 102, 0.15);
+  animation: audioRing1 1.5s ease-out infinite;
+  z-index: 2;
+}
+
+.speaker-grille.playing::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(232, 156, 32, 0.12);
+  animation: audioRing2 1.5s ease-out infinite 0.5s;
+  z-index: 2;
+}
+
+@keyframes audioRing1 {
+  0% { 
+    width: 20px; height: 20px; 
+    opacity: 0.8;
+    border-color: rgba(51, 255, 102, 0.25);
+  }
+  100% { 
+    width: 90%; height: 90%; 
+    opacity: 0;
+    border-color: rgba(51, 255, 102, 0);
+  }
+}
+
+@keyframes audioRing2 {
+  0% { 
+    width: 15px; height: 15px; 
+    opacity: 0.6;
+    border-color: rgba(232, 156, 32, 0.2);
+  }
+  100% { 
+    width: 80%; height: 80%; 
+    opacity: 0;
+    border-color: rgba(232, 156, 32, 0);
+  }
+}
+
 @keyframes speakerVibe {
-  from { transform: translate(0, 0) scale(1); }
-  to { transform: translate(0.4px, 0.2px) scale(1.001); }
+  from { transform: translate(0, 0); }
+  to { transform: translate(0.4px, 0.2px); }
 }
 
 @keyframes speakerPulse {
-  0%, 100% { transform: scale(1); }
-  25% { transform: scale(1.003) translateX(0.3px); }
-  50% { transform: scale(0.998); }
-  75% { transform: scale(1.002) translateX(-0.2px); }
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(0.3px, -0.2px); }
+  50% { transform: translate(-0.2px, 0.3px); }
+  75% { transform: translate(-0.3px, -0.1px); }
 }
 
 /* === YOUTUBE PLAYER (tiny, technically visible for browser policy) === */
