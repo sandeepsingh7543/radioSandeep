@@ -5,12 +5,12 @@
 // === CONFIG — Multiple Playlists (random on each refresh) ===
 const RADIO_CONFIG = {
   playlists: [
-    { name: "90's Bollywood Hits", url: "https://music.youtube.com/playlist?list=PLeatb7hupNV_AWUl_7ttbsKeCQh8tF5N4" },
-    { name: "Old Hindi Romantic Songs", url: "https://music.youtube.com/playlist?list=RDCLAK5uy_nLOvZAnN86K4f-fJ6tUi0xHUPBHLBBkVE" },
-    { name: "Bollywood Retro", url: "https://music.youtube.com/playlist?list=RDCLAK5uy_l6TnLH20Ir4P2cfx1DNSxaZiea49NmIKY" },
-    { name: "Seema", url: "https://music.youtube.com/playlist?list=PLgq4_mvJJU4B6RvGtnJ2jASXcuHykH6qr" },
-    { name: "Bus Driver Playlist", url: "https://music.youtube.com/playlist?list=PLrc1-2uc6G7j--pBF0vbBxHvfI0gJhzdQ" },
-    { name: "90s Bollywood", url: "https://music.youtube.com/playlist?list=RDCLAK5uy_kNNx8o3LyD3XF_wKmbZZRMsdiYpo5GjrM" }
+    { name: "90's Bollywood Hits", url: "https://music.youtube.com/playlist?list=PLeatb7hupNV_AWUl_7ttbsKeCQh8tF5N4" }
+    // { name: "Old Hindi Romantic Songs", url: "https://music.youtube.com/playlist?list=RDCLAK5uy_nLOvZAnN86K4f-fJ6tUi0xHUPBHLBBkVE" },
+    // { name: "Bollywood Retro", url: "https://music.youtube.com/playlist?list=RDCLAK5uy_l6TnLH20Ir4P2cfx1DNSxaZiea49NmIKY" },
+    // { name: "Seema", url: "https://music.youtube.com/playlist?list=PLgq4_mvJJU4B6RvGtnJ2jASXcuHykH6qr" },
+    // { name: "Bus Driver Playlist", url: "https://music.youtube.com/playlist?list=PLrc1-2uc6G7j--pBF0vbBxHvfI0gJhzdQ" },
+    // { name: "90s Bollywood", url: "https://music.youtube.com/playlist?list=RDCLAK5uy_kNNx8o3LyD3XF_wKmbZZRMsdiYpo5GjrM" }
   ]
 };
 
