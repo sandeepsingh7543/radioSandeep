@@ -185,6 +185,7 @@ function updateUI() {
   var btnPlay = document.getElementById('btnPlay');
   var crtGlow = document.getElementById('crtGlow');
   var speaker = document.getElementById('speakerGrille');
+  var speakerSection = speaker ? speaker.closest('.speaker-section') : null;
 
   if (isPlaying) {
     if (iconPlay) iconPlay.style.display = 'none';
@@ -192,12 +193,14 @@ function updateUI() {
     if (btnPlay) btnPlay.classList.add('is-playing');
     if (crtGlow) crtGlow.classList.add('active');
     if (speaker) speaker.classList.add('playing');
+    if (speakerSection) speakerSection.classList.add('playing');
   } else {
     if (iconPlay) iconPlay.style.display = 'block';
     if (iconPause) iconPause.style.display = 'none';
     if (btnPlay) btnPlay.classList.remove('is-playing');
     if (crtGlow) crtGlow.classList.remove('active');
     if (speaker) speaker.classList.remove('playing');
+    if (speakerSection) speakerSection.classList.remove('playing');
   }
 }
 
