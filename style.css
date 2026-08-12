@@ -316,18 +316,33 @@ body {
       var(--wood-dark) 75%,
       var(--wood-darkest) 100%
     );
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow:
-    0 0 0 1.5px rgba(0, 0, 0, 0.8),
-    0 0 0 3px var(--wood-dark),
-    0 0 0 4px rgba(0, 0, 0, 0.6),
-    0 20px 60px rgba(0, 0, 0, 0.5),
-    0 8px 20px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 200, 100, 0.03);
+    /* Outer frame bevel */
+    0 0 0 2px rgba(0, 0, 0, 0.9),
+    0 0 0 4px var(--wood-mid),
+    0 0 0 5.5px rgba(0, 0, 0, 0.7),
+    0 0 0 7px var(--wood-dark),
+    0 0 0 8px rgba(0, 0, 0, 0.5),
+    /* 3D depth - right & bottom offset */
+    6px 8px 0px rgba(25, 15, 6, 0.9),
+    8px 10px 0px rgba(18, 10, 4, 0.7),
+    10px 12px 0px rgba(12, 7, 2, 0.5),
+    /* Soft ambient shadow */
+    0 30px 60px rgba(0, 0, 0, 0.5),
+    0 12px 24px rgba(0, 0, 0, 0.4),
+    0 50px 100px rgba(0, 0, 0, 0.25),
+    /* Inner bevel highlights */
+    inset 0 2px 0 rgba(255, 200, 100, 0.06),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.3),
+    inset 2px 0 0 rgba(255, 200, 100, 0.04),
+    inset -2px 0 0 rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transform: perspective(2200px) rotateX(1.2deg);
+  /* 3D perspective - slight angle */
+  transform: perspective(1600px) rotateX(2.5deg) rotateY(-1deg);
+  transform-style: preserve-3d;
 }
 
 /* Animated color line — TOP */
@@ -405,21 +420,27 @@ body {
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.55;
+  opacity: 0.7;
   border-radius: inherit;
   background:
     repeating-linear-gradient(
       178deg,
-      transparent 0px, transparent 7px,
-      rgba(0, 0, 0, 0.035) 7px, rgba(0, 0, 0, 0.035) 8px
+      transparent 0px, transparent 5px,
+      rgba(0, 0, 0, 0.04) 5px, rgba(0, 0, 0, 0.04) 6px
     ),
     repeating-linear-gradient(
       181deg,
-      transparent 0px, transparent 16px,
-      rgba(60, 30, 8, 0.025) 16px, rgba(60, 30, 8, 0.025) 17px
+      transparent 0px, transparent 12px,
+      rgba(60, 30, 8, 0.03) 12px, rgba(60, 30, 8, 0.03) 13px
     ),
-    radial-gradient(ellipse at 20% 55%, rgba(30, 15, 5, 0.06) 0%, transparent 12%),
-    radial-gradient(ellipse at 75% 35%, rgba(50, 25, 8, 0.04) 0%, transparent 10%);
+    repeating-linear-gradient(
+      176deg,
+      transparent 0px, transparent 22px,
+      rgba(40, 20, 5, 0.02) 22px, rgba(40, 20, 5, 0.02) 23px
+    ),
+    radial-gradient(ellipse at 20% 55%, rgba(30, 15, 5, 0.08) 0%, transparent 15%),
+    radial-gradient(ellipse at 75% 35%, rgba(50, 25, 8, 0.06) 0%, transparent 12%),
+    radial-gradient(ellipse at 50% 80%, rgba(40, 20, 6, 0.04) 0%, transparent 10%);
   mix-blend-mode: multiply;
 }
 
@@ -569,14 +590,17 @@ body {
 .crt-bezel {
   background: linear-gradient(145deg, #0e0e0e 0%, #060606 100%);
   border-radius: 6px;
-  padding: 4px;
+  padding: 5px;
   border: 2px solid #1a1a1a;
   box-shadow:
-    inset 0 2px 8px rgba(0, 0, 0, 0.9),
-    inset 0 -1px 3px rgba(0, 0, 0, 0.5),
-    0 1px 0 rgba(255, 200, 100, 0.02),
-    0 0 0 1px rgba(255, 255, 255, 0.02);
-  /* Subtle metallic frame feel */
+    inset 0 3px 10px rgba(0, 0, 0, 0.9),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.5),
+    inset 2px 0 4px rgba(0, 0, 0, 0.4),
+    inset -2px 0 4px rgba(0, 0, 0, 0.4),
+    0 2px 0 rgba(255, 200, 100, 0.03),
+    0 0 0 1px rgba(255, 255, 255, 0.02),
+    /* 3D recessed effect */
+    0 4px 8px rgba(0, 0, 0, 0.4);
   background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, transparent 50%, rgba(0, 0, 0, 0.1) 100%);
 }
 
@@ -903,14 +927,17 @@ body {
 }
 
 .speaker-recess {
-  background: #060402;
-  border-radius: 5px;
-  padding: 3px;
-  border: 1px solid rgba(0, 0, 0, 0.9);
+  background: #050402;
+  border-radius: 6px;
+  padding: 4px;
+  border: 2px solid rgba(0, 0, 0, 0.9);
   box-shadow:
-    inset 0 3px 8px rgba(0, 0, 0, 0.8),
-    inset 0 -1px 3px rgba(0, 0, 0, 0.4),
-    0 1px 0 rgba(255, 200, 100, 0.02);
+    inset 0 4px 10px rgba(0, 0, 0, 0.9),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.5),
+    inset 3px 0 6px rgba(0, 0, 0, 0.5),
+    inset -3px 0 6px rgba(0, 0, 0, 0.5),
+    0 2px 0 rgba(255, 200, 100, 0.02),
+    0 4px 6px rgba(0, 0, 0, 0.3);
   transition: box-shadow 0.3s ease;
 }
 
@@ -1034,12 +1061,14 @@ body {
 .progress-track {
   position: relative;
   width: 100%;
-  height: 5px;
-  background: rgba(255, 255, 255, 0.04);
+  height: 6px;
+  background: rgba(0, 0, 0, 0.4);
   border-radius: 3px;
   cursor: pointer;
-  border: 1px solid rgba(0, 0, 0, 0.4);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.7),
+    0 1px 0 rgba(255, 200, 100, 0.03);
 }
 
 .progress-fill {
@@ -1148,6 +1177,13 @@ body {
   display: block;
   flex-shrink: 0;
 }
+
+.btn-icon {
+  pointer-events: none;
+  display: block;
+  flex-shrink: 0;
+  filter: brightness(0.9);
+}
 }
 
 /* Play button - larger */
@@ -1159,17 +1195,20 @@ body {
 .play-depth {
   background: linear-gradient(180deg, #1a1008 0%, #0a0804 100%);
   border-color: var(--brass-dark);
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.6);
 }
 
 .play-face {
-  background: linear-gradient(160deg, #5a3a1a 0%, #3a2210 40%, #241508 100%);
+  background: linear-gradient(160deg, #6a4420 0%, #4a2a12 30%, #3a2210 60%, #241508 100%);
   border: 1.5px solid var(--brass);
   border-bottom-color: var(--brass-dark);
   color: var(--cream);
   box-shadow:
-    0 3px 6px rgba(0, 0, 0, 0.6),
+    0 4px 8px rgba(0, 0, 0, 0.6),
+    0 2px 3px rgba(0, 0, 0, 0.4),
     0 0 0 0.5px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 200, 100, 0.08);
+    inset 0 1px 0 rgba(255, 200, 100, 0.12),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3);
 }
 
 .hw-btn.play-btn:hover .play-face {
