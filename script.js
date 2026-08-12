@@ -55,6 +55,24 @@ function switchPlaylist() {
 // === YOUTUBE API READY (must be global) ===
 function onYouTubeIframeAPIReady() {
   console.log('[RADIO] YouTube API loaded');
+  
+  // Ensure DOM is ready before creating player
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', createPlayer);
+  } else {
+    createPlayer();
+  }
+}
+
+function createPlayer() {
+  // Prevent duplicate player
+  if (player) return;
+  
+  var ytEl = document.getElementById('ytPlayer');
+  if (!ytEl) {
+    console.error('[RADIO] ytPlayer element not found');
+    return;
+  }
 
   var playlistId = getPlaylistId(currentPlaylist.url);
   console.log('[RADIO] Playlist:', currentPlaylist.name, '| ID:', playlistId);
@@ -580,4 +598,27 @@ document.addEventListener('DOMContentLoaded', function () {
       if (e.target === codeModal) codeModal.classList.remove('open');
     });
   }
+
+  // Fallback: if YouTube API already loaded (cached on refresh), create player now
+  if (typeof YT !== 'undefined' && YT.Player && !player) {
+    console.log('[RADIO] API was cached, creating player now');
+    createPlayer();
+  }
+
+  // Safety: if player not ready after 8s, retry
+  setTimeout(function () {
+    if (!playerReady) {
+      console.log('[RADIO] Player not ready after 8s, retrying...');
+      if (player && typeof player.destroy === 'function') {
+        try { player.destroy(); } catch(e) {}
+        player = null;
+      }
+      // Re-create ytPlayer div
+      var container = document.getElementById('youtubeContainer');
+      if (container) {
+        container.innerHTML = '<div id="ytPlayer"></div>';
+        createPlayer();
+      }
+    }
+  }, 8000);
 });
