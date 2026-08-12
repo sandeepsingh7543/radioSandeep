@@ -7,7 +7,6 @@ const RADIO_CONFIG = {
   playlists: [
     { name: "90's Bollywood Hits", url: "https://music.youtube.com/playlist?list=PLeatb7hupNV_AWUl_7ttbsKeCQh8tF5N4" },
     { name: "Bollywood Retro", url: "https://music.youtube.com/playlist?list=RDCLAK5uy_l6TnLH20Ir4P2cfx1DNSxaZiea49NmIKY" }
-    // { name: "90s Bollywood", url: "https://music.youtube.com/playlist?list=RDCLAK5uy_kNNx8o3LyD3XF_wKmbZZRMsdiYpo5GjrM" }
   ]
 };
 
@@ -101,7 +100,7 @@ function onPlayerReady(event) {
   var led = document.getElementById('ledGlow');
   if (led) led.classList.add('on');
 
-  // Wait for playlist data
+  // Wait for playlist data — faster polling, auto-build when ready
   var tries = 0;
   var waitPl = setInterval(function () {
     tries++;
@@ -110,10 +109,12 @@ function onPlayerReady(event) {
       clearInterval(waitPl);
       var numEl = document.getElementById('songNumber');
       if (numEl) numEl.textContent = '01 / ' + String(pl.length).padStart(2, '0');
+      // Immediately build playlist so it's ready when user opens panel
+      buildPlaylist();
       console.log('[RADIO] ✓ Ready!', pl.length, 'tracks');
     }
-    if (tries > 20) clearInterval(waitPl);
-  }, 500);
+    if (tries > 40) clearInterval(waitPl);
+  }, 250);
 }
 
 // === STATE CHANGE ===
@@ -279,11 +280,11 @@ function buildPlaylist() {
   if (!container) return;
 
   if (!pl || pl.length === 0) {
-    container.innerHTML = '<div class="playlist-empty">Play a song first to load playlist</div>';
-    // Auto-retry after 2 seconds
+    container.innerHTML = '<div class="playlist-empty">Loading...</div>';
+    // Retry quickly
     setTimeout(function () {
-      if (playlistOpen) buildPlaylist();
-    }, 2000);
+      if (playlistOpen || !pl) buildPlaylist();
+    }, 1000);
     return;
   }
 
