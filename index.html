@@ -199,7 +199,77 @@
     </main>
 
     <!-- Developer Credit -->
-    <div class="dev-credit">Developed by <span class="dev-name">Sandeep Singh</span></div>
+    <div class="dev-credit">
+      Developed by <span class="dev-name">Sandeep Singh</span>
+      <button class="code-btn" id="btnViewCode" aria-label="View Animation Code">⟨/⟩</button>
+    </div>
+
+    <!-- Code Modal -->
+    <div class="code-modal" id="codeModal">
+      <div class="code-card">
+        <div class="code-header">
+          <span class="code-title">✨ Animation Code</span>
+          <button class="code-close" id="btnCloseCode">✕</button>
+        </div>
+        <pre class="code-block"><code>/* Animated Color Line — TOP */
+.radio::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    #ff3b3b 10%,
+    #ff8c1a 20%,
+    #ffe61a 30%,
+    #33ff66 45%,
+    #1ac8ff 60%,
+    #a855f7 75%,
+    #ff3b8c 90%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: lineMove 3s linear infinite;
+}
+
+/* Animated Color Line — BOTTOM */
+.radio::after {
+  background-size: 200% 100%;
+  animation: lineMove 3s linear infinite reverse;
+}
+
+/* Keyframe — moves gradient across */
+@keyframes lineMove {
+  0%   { background-position: -100% 0; }
+  100% { background-position:  100% 0; }
+}
+
+/* Speaker Ripple Waves */
+.speaker-grille.playing::before {
+  border: 1px solid rgba(51, 255, 102, 0.15);
+  animation: audioRing1 1.5s ease-out infinite;
+}
+
+@keyframes audioRing1 {
+  0%   { width: 20px; opacity: 0.8; }
+  100% { width: 90%;  opacity: 0; }
+}
+
+/* CRT Phosphor Glow */
+.crt-phosphor.active {
+  background: radial-gradient(ellipse,
+    rgba(51,255,102,0.06), transparent);
+  animation: crtFlicker 5s infinite;
+}
+
+/* Power LED Breathing */
+.led-glow.on {
+  animation: ledBreath 3.5s ease-in-out infinite;
+}</code></pre>
+      </div>
+    </div>
   </div>
 
   <!-- YouTube IFrame API -->

@@ -75,11 +75,120 @@
   color: rgba(255, 255, 255, 0.3);
   letter-spacing: 0.08em;
   z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 .dev-name {
   color: rgba(255, 255, 255, 0.5);
   font-weight: 500;
+}
+
+.code-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.7rem;
+  font-family: 'Courier Prime', monospace;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.code-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--crt-green);
+  border-color: rgba(51, 255, 102, 0.3);
+}
+
+/* === CODE MODAL === */
+.code-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.code-modal.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.code-card {
+  width: 90%;
+  max-width: 520px;
+  max-height: 80vh;
+  background: rgba(10, 15, 20, 0.95);
+  border: 1px solid rgba(51, 255, 102, 0.15);
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 20px rgba(51, 255, 102, 0.05);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transform: scale(0.95);
+  transition: transform 0.3s;
+}
+
+.code-modal.open .code-card {
+  transform: scale(1);
+}
+
+.code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.code-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: var(--crt-green);
+  font-weight: 500;
+}
+
+.code-close {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--cream);
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 4px 10px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.code-close:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.code-block {
+  padding: 16px;
+  overflow-y: auto;
+  flex: 1;
+  font-family: 'Courier Prime', monospace;
+  font-size: 0.65rem;
+  line-height: 1.6;
+  color: var(--crt-green);
+  text-shadow: 0 0 3px rgba(51, 255, 102, 0.2);
+  white-space: pre;
+  tab-size: 2;
+}
+
+.code-block code {
+  font-family: inherit;
 }
 
 /* === BASE === */
@@ -183,6 +292,61 @@ body {
   flex-direction: column;
   overflow: hidden;
   transform: perspective(2200px) rotateX(1.2deg);
+}
+
+/* Animated color line — TOP */
+.radio::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    #ff3b3b 10%, 
+    #ff8c1a 20%, 
+    #ffe61a 30%, 
+    #33ff66 45%, 
+    #1ac8ff 60%, 
+    #a855f7 75%, 
+    #ff3b8c 90%, 
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: lineMove 3s linear infinite;
+  z-index: 50;
+  border-radius: 8px 8px 0 0;
+}
+
+/* Animated color line — BOTTOM */
+.radio::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    #ff3b8c 10%, 
+    #a855f7 20%, 
+    #1ac8ff 35%, 
+    #33ff66 50%, 
+    #ffe61a 65%, 
+    #ff8c1a 80%, 
+    #ff3b3b 90%, 
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: lineMove 3s linear infinite reverse;
+  z-index: 50;
+  border-radius: 0 0 8px 8px;
+}
+
+@keyframes lineMove {
+  0% { background-position: -100% 0; }
+  100% { background-position: 100% 0; }
 }
 
 /* Radio cast shadow */
@@ -722,7 +886,6 @@ body {
     inset 0 -1px 3px rgba(0, 0, 0, 0.4),
     0 0 8px rgba(51, 255, 102, 0.05),
     0 1px 0 rgba(255, 200, 100, 0.02);
-}
 }
 
 .speaker-grille {
@@ -1499,6 +1662,11 @@ body {
 /* === REDUCED MOTION === */
 @media (prefers-reduced-motion: reduce) {
   .led-glow.on {
+    animation: none;
+  }
+
+  .radio::before,
+  .radio::after {
     animation: none;
   }
 

@@ -528,4 +528,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
   console.log('[RADIO] ♫ TIME RADIO ready');
   console.log('[RADIO] Keyboard: Space ← → ↑ ↓ S P');
+
+  // --- VIEW CODE MODAL ---
+  var codeModal = document.getElementById('codeModal');
+  var btnViewCode = document.getElementById('btnViewCode');
+  var btnCloseCode = document.getElementById('btnCloseCode');
+
+  if (btnViewCode && codeModal) {
+    btnViewCode.addEventListener('click', function () {
+      codeModal.classList.add('open');
+    });
+    btnCloseCode.addEventListener('click', function () {
+      codeModal.classList.remove('open');
+    });
+    codeModal.addEventListener('click', function (e) {
+      if (e.target === codeModal) codeModal.classList.remove('open');
+    });
+  }
 });
