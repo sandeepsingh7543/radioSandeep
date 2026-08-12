@@ -281,10 +281,6 @@ function buildPlaylist() {
 
   if (!pl || pl.length === 0) {
     container.innerHTML = '<div class="playlist-empty">Loading...</div>';
-    // Retry quickly
-    setTimeout(function () {
-      if (playlistOpen || !pl) buildPlaylist();
-    }, 1000);
     return;
   }
 
