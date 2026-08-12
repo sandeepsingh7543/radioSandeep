@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TIME RADIO — Vintage Indian Radio</title>
+  <meta name="description" content="An authentic vintage Indian tabletop radio experience powered by YouTube." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=VT323&family=Courier+Prime:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="scene">
+    <div class="ambient-warm"></div>
+    <div class="table-surface"></div>
+
+    <!-- ====== RADIO CABINET ====== -->
+    <main class="radio" id="radio" role="application" aria-label="TIME RADIO Music Player">
+      <!-- Wood grain overlays -->
+      <div class="wood-grain" aria-hidden="true"></div>
+      <div class="wood-aging" aria-hidden="true"></div>
+
+      <!-- Cast shadow -->
+      <div class="radio-shadow" aria-hidden="true"></div>
+
+      <!-- ===== TOP BRAND STRIP ===== -->
+      <header class="brand-strip">
+        <div class="screw screw-tl" aria-hidden="true"></div>
+        <div class="brand-plate">
+          <h1 class="brand-title">TIME</h1>
+          <span class="brand-separator">|</span>
+          <span class="brand-subtitle">RADIO</span>
+        </div>
+        <div class="brand-right">
+          <span class="model-label">EST. 1975 • TRANSISTOR</span>
+          <div class="power-led">
+            <div class="led-glass">
+              <div class="led-glow" id="ledGlow"></div>
+            </div>
+          </div>
+        </div>
+        <div class="screw screw-tr" aria-hidden="true"></div>
+      </header>
+
+      <!-- ===== CRT DISPLAY ===== -->
+      <section class="crt-section" aria-live="polite" aria-atomic="true">
+        <div class="crt-bezel">
+          <div class="crt-glass">
+            <div class="crt-reflection" aria-hidden="true"></div>
+            <div class="crt-scanlines" aria-hidden="true"></div>
+            <div class="crt-phosphor" id="crtGlow" aria-hidden="true"></div>
+            <div class="crt-content" id="infoDisplay">
+              <div class="crt-line crt-line-station">
+                <span id="displayStation">90'S HITS</span>
+              </div>
+              <div class="crt-line crt-line-status">
+                <span id="displayStatus">READY</span>
+              </div>
+              <div class="crt-line crt-line-title">
+                <span id="songTitle">Press Play to Begin</span>
+              </div>
+              <div class="crt-line crt-line-artist">
+                <span id="songArtist"></span>
+              </div>
+              <div class="crt-line crt-line-meta">
+                <span class="crt-track" id="songNumber">-- / --</span>
+              </div>
+              <div class="crt-line crt-line-progress">
+                <span class="crt-time" id="currentTime">0:00</span>
+                <span class="crt-bar" id="displayLabel">━━━━━━━━━━━━</span>
+                <span class="crt-time" id="totalTime">0:00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== TUNING DIAL ===== -->
+      <section class="tuning-section" aria-hidden="true">
+        <div class="tuning-window">
+          <div class="tuning-scale">
+            <div class="freq-markers">
+              <span>88</span><span>92</span><span>96</span><span>100</span><span>104</span><span>108</span>
+            </div>
+            <div class="freq-ticks"></div>
+            <div class="tuning-needle" id="tuningNeedle">
+              <div class="needle-line"></div>
+              <div class="needle-glow"></div>
+            </div>
+          </div>
+          <div class="band-labels">
+            <span class="band-label active">FM</span>
+            <span class="band-label">AM</span>
+            <span class="band-label">SW</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SPEAKER GRILLE ===== -->
+      <div class="speaker-section" aria-hidden="true">
+        <div class="speaker-recess">
+          <div class="speaker-grille" id="speakerGrille">
+            <svg class="grille-svg" viewBox="0 0 200 120" preserveAspectRatio="none">
+              <defs>
+                <pattern id="grilleHoles" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
+                  <circle cx="4" cy="4" r="1.6" fill="rgba(0,0,0,0.85)"/>
+                </pattern>
+              </defs>
+              <rect width="200" height="120" fill="#0f0c08"/>
+              <rect width="200" height="120" fill="url(#grilleHoles)"/>
+            </svg>
+            <div class="speaker-cloth"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== PROGRESS BAR ===== -->
+      <div class="progress-strip">
+        <div class="progress-track" id="progressTrack" role="progressbar" aria-label="Playback progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="progress-fill" id="progressBar"></div>
+        </div>
+      </div>
+
+      <!-- ===== TRANSPORT CONTROLS ===== -->
+      <div class="controls-row">
+        <button class="hw-btn power-btn on" id="btnPower" aria-label="Power" aria-pressed="true" title="Power">
+          <span class="hw-btn-face">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
+          </span>
+          <span class="hw-btn-depth"></span>
+        </button>
+
+        <div class="transport-group">
+          <button class="hw-btn" id="btnShuffle" aria-label="Shuffle" aria-pressed="false" title="Shuffle [S]">
+            <span class="hw-btn-face">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
+            </span>
+            <span class="hw-btn-depth"></span>
+          </button>
+
+          <button class="hw-btn" id="btnPrev" aria-label="Previous" title="Previous [←]">
+            <span class="hw-btn-face">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><rect x="3" y="5" width="3" height="14" rx="1"/><polygon points="21 5 9 12 21 19"/></svg>
+            </span>
+            <span class="hw-btn-depth"></span>
+          </button>
+
+          <button class="hw-btn play-btn" id="btnPlay" aria-label="Play" title="Play [Space]">
+            <span class="hw-btn-face play-face">
+              <svg class="icon-play" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><polygon points="6 3 20 12 6 21"/></svg>
+              <svg class="icon-pause" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="display:none;"><rect x="5" y="3" width="5" height="18" rx="1"/><rect x="14" y="3" width="5" height="18" rx="1"/></svg>
+            </span>
+            <span class="hw-btn-depth play-depth"></span>
+          </button>
+
+          <button class="hw-btn" id="btnNext" aria-label="Next" title="Next [→]">
+            <span class="hw-btn-face">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><rect x="18" y="5" width="3" height="14" rx="1"/><polygon points="3 5 15 12 3 19"/></svg>
+            </span>
+            <span class="hw-btn-depth"></span>
+          </button>
+
+          <button class="hw-btn" id="btnPlaylist" aria-label="Playlist" aria-pressed="false" title="Playlist [P]">
+            <span class="hw-btn-face">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="16" y2="6"/><line x1="4" y1="12" x2="16" y2="12"/><line x1="4" y1="18" x2="12" y2="18"/><polyline points="18 15 20 18 22 15"/></svg>
+            </span>
+            <span class="hw-btn-depth"></span>
+          </button>
+        </div>
+
+        <!-- Volume Knob -->
+        <div class="knob-assembly">
+          <div class="knob-mount" aria-hidden="true"></div>
+          <div class="knob" id="volumeKnob" role="slider" aria-label="Volume" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80" tabindex="0">
+            <div class="knob-body">
+              <div class="knob-ridges"></div>
+              <div class="knob-cap"></div>
+              <div class="knob-indicator"></div>
+            </div>
+          </div>
+          <span class="knob-label">VOLUME</span>
+          <!-- Hidden range for accessibility fallback -->
+          <input type="range" id="volumeSlider" class="sr-only" min="0" max="100" value="80" aria-label="Volume" />
+        </div>
+      </div>
+
+      <!-- ===== PLAYLIST PANEL ===== -->
+      <div class="playlist-panel" id="playlistPanel" aria-label="Playlist" role="list">
+        <div class="playlist-header">
+          <span class="playlist-title">PLAYLIST</span>
+          <button class="playlist-close" id="btnPlaylistClose" aria-label="Close playlist">✕</button>
+        </div>
+        <div class="playlist-items" id="playlistItems">
+          <div class="playlist-empty">Loading playlist...</div>
+        </div>
+      </div>
+
+      <!-- ===== BOTTOM TRIM ===== -->
+      <footer class="bottom-trim" aria-hidden="true">
+        <div class="screw screw-bl"></div>
+        <div class="vent-slots">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="screw screw-br"></div>
+      </footer>
+
+      <!-- Keyboard hints (desktop only) -->
+      <div class="kbd-hints" aria-hidden="true">
+        <kbd>Space</kbd> Play &nbsp; <kbd>←</kbd><kbd>→</kbd> Track &nbsp; <kbd>↑</kbd><kbd>↓</kbd> Vol &nbsp; <kbd>S</kbd> Shuffle &nbsp; <kbd>P</kbd> Playlist
+      </div>
+
+    </main>
+  </div>
+
+  <!-- YouTube Player (hidden, audio only) -->
+  <div class="yt-hidden" id="youtubeContainer" aria-hidden="true">
+    <div id="ytPlayer"></div>
+  </div>
+
+  <!-- YouTube IFrame API -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="script.js"></script>
+</body>
+</html>
