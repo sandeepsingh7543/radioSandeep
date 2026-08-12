@@ -2,10 +2,21 @@
 // TIME RADIO — YouTube IFrame API Player
 // ===================================================================
 
-// === CONFIG ===
+// === CONFIG — Multiple Playlists (random on each refresh) ===
 const RADIO_CONFIG = {
-  playlistUrl: "https://music.youtube.com/playlist?list=PLeatb7hupNV_AWUl_7ttbsKeCQh8tF5N4"
+  playlists: [
+    { name: "90's Bollywood Hits", url: "https://music.youtube.com/playlist?list=PLeatb7hupNV_AWUl_7ttbsKeCQh8tF5N4" },
+    { name: "Old Hindi Romantic Songs", url: "https://music.youtube.com/playlist?list=RDCLAK5uy_nLOvZAnN86K4f-fJ6tUi0xHUPBHLBBkVE" },
+    { name: "Bollywood Retro", url: "https://music.youtube.com/playlist?list=RDCLAK5uy_l6TnLH20Ir4P2cfx1DNSxaZiea49NmIKY" },
+    { name: "Seema", url: "https://music.youtube.com/playlist?list=PLgq4_mvJJU4B6RvGtnJ2jASXcuHykH6qr" },
+    { name: "Bus Driver Playlist", url: "https://music.youtube.com/playlist?list=PLrc1-2uc6G7j--pBF0vbBxHvfI0gJhzdQ" },
+    { name: "90s Bollywood", url: "https://music.youtube.com/playlist?list=RDCLAK5uy_kNNx8o3LyD3XF_wKmbZZRMsdiYpo5GjrM" }
+  ]
 };
+
+// Pick random playlist on each load
+var currentPlaylistIndex = Math.floor(Math.random() * RADIO_CONFIG.playlists.length);
+var currentPlaylist = RADIO_CONFIG.playlists[currentPlaylistIndex];
 
 // === PARSE PLAYLIST ID FROM URL ===
 function getPlaylistId(url) {
@@ -13,7 +24,6 @@ function getPlaylistId(url) {
     const u = new URL(url);
     return u.searchParams.get('list');
   } catch (e) {
-    // If not a URL, treat as raw ID
     return url;
   }
 }
@@ -29,12 +39,29 @@ var volume = 80;
 var trackTitles = {};
 var playlistOpen = false;
 
+// === SWITCH PLAYLIST ===
+function switchPlaylist() {
+  currentPlaylistIndex = (currentPlaylistIndex + 1) % RADIO_CONFIG.playlists.length;
+  currentPlaylist = RADIO_CONFIG.playlists[currentPlaylistIndex];
+  var playlistId = getPlaylistId(currentPlaylist.url);
+
+  if (player && playerReady) {
+    trackTitles = {};
+    player.loadPlaylist({ list: playlistId, listType: 'playlist', index: 0 });
+    var stationEl = document.getElementById('displayStation');
+    if (stationEl) stationEl.textContent = currentPlaylist.name.toUpperCase();
+    var titleEl = document.getElementById('songTitle');
+    if (titleEl) titleEl.textContent = 'Loading ' + currentPlaylist.name + '...';
+    console.log('[RADIO] Switched to:', currentPlaylist.name);
+  }
+}
+
 // === YOUTUBE API READY (must be global) ===
 function onYouTubeIframeAPIReady() {
   console.log('[RADIO] YouTube API loaded');
 
-  var playlistId = getPlaylistId(RADIO_CONFIG.playlistUrl);
-  console.log('[RADIO] Playlist ID:', playlistId);
+  var playlistId = getPlaylistId(currentPlaylist.url);
+  console.log('[RADIO] Playlist:', currentPlaylist.name, '| ID:', playlistId);
 
   player = new YT.Player('ytPlayer', {
     width: '100%',
@@ -70,6 +97,9 @@ function onPlayerReady(event) {
 
   var status = document.getElementById('displayStatus');
   if (status) status.textContent = 'READY';
+
+  var station = document.getElementById('displayStation');
+  if (station) station.textContent = currentPlaylist.name.toUpperCase();
 
   var led = document.getElementById('ledGlow');
   if (led) led.classList.add('on');
@@ -405,6 +435,13 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // --- CHANNEL SWITCH ---
+  document.getElementById('btnChannel').addEventListener('click', function (e) {
+    e.preventDefault(); e.stopPropagation();
+    if (!isPowerOn) return;
+    switchPlaylist();
+  });
+
   // --- POWER ---
   document.getElementById('btnPower').addEventListener('click', function (e) {
     e.preventDefault(); e.stopPropagation();
@@ -522,6 +559,10 @@ document.addEventListener('DOMContentLoaded', function () {
       case 'KeyP':
         e.preventDefault();
         document.getElementById('btnPlaylist').click();
+        break;
+      case 'KeyC':
+        e.preventDefault();
+        document.getElementById('btnChannel').click();
         break;
     }
   });
