@@ -94,6 +94,14 @@
               <div class="eq-col eq-col-10"><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span></div>
               <div class="eq-col eq-col-11"><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span></div>
               <div class="eq-col eq-col-12"><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span></div>
+              <div class="eq-col eq-col-13"><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span></div>
+              <div class="eq-col eq-col-14"><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span></div>
+              <div class="eq-col eq-col-15"><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span></div>
+              <div class="eq-col eq-col-16"><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span></div>
+              <div class="eq-col eq-col-17"><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span></div>
+              <div class="eq-col eq-col-18"><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span></div>
+              <div class="eq-col eq-col-19"><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span></div>
+              <div class="eq-col eq-col-20"><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span><span class="eq-dot"></span></div>
             </div>
             <!-- YouTube Player hidden behind speaker grille -->
             <div class="yt-behind-grille" id="youtubeContainer">
@@ -205,73 +213,28 @@
     <!-- Developer Credit -->
     <div class="dev-credit">
       Developed by <span class="dev-name">Sandeep Singh</span>
-      <button class="code-btn" id="btnViewCode" aria-label="View Animation Code">⟨/⟩</button>
+      <button class="code-btn" id="btnViewCode" aria-label="Developer Info">👤</button>
     </div>
 
-    <!-- Code Modal -->
+    <!-- Developer Profile Modal -->
     <div class="code-modal" id="codeModal">
-      <div class="code-card">
-        <div class="code-header">
-          <span class="code-title">✨ Animation Code</span>
-          <button class="code-close" id="btnCloseCode">✕</button>
+      <div class="dev-profile-card">
+        <button class="code-close" id="btnCloseCode">✕</button>
+        <div class="dev-avatar">
+          <img src="assets/profile.jpeg" alt="Sandeep Singh" class="dev-avatar-img" />
         </div>
-        <pre class="code-block"><code>/* Animated Color Line — TOP */
-.radio::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg,
-    transparent 0%,
-    #ff3b3b 10%,
-    #ff8c1a 20%,
-    #ffe61a 30%,
-    #33ff66 45%,
-    #1ac8ff 60%,
-    #a855f7 75%,
-    #ff3b8c 90%,
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  animation: lineMove 3s linear infinite;
-}
-
-/* Animated Color Line — BOTTOM */
-.radio::after {
-  background-size: 200% 100%;
-  animation: lineMove 3s linear infinite reverse;
-}
-
-/* Keyframe — moves gradient across */
-@keyframes lineMove {
-  0%   { background-position: -100% 0; }
-  100% { background-position:  100% 0; }
-}
-
-/* Speaker Ripple Waves */
-.speaker-grille.playing::before {
-  border: 1px solid rgba(51, 255, 102, 0.15);
-  animation: audioRing1 1.5s ease-out infinite;
-}
-
-@keyframes audioRing1 {
-  0%   { width: 20px; opacity: 0.8; }
-  100% { width: 90%;  opacity: 0; }
-}
-
-/* CRT Phosphor Glow */
-.crt-phosphor.active {
-  background: radial-gradient(ellipse,
-    rgba(51,255,102,0.06), transparent);
-  animation: crtFlicker 5s infinite;
-}
-
-/* Power LED Breathing */
-.led-glow.on {
-  animation: ledBreath 3.5s ease-in-out infinite;
-}</code></pre>
+        <h2 class="dev-profile-name">Sandeep Singh</h2>
+        <p class="dev-profile-role">Developer</p>
+        <div class="dev-profile-links">
+          <a href="mailto:sandeeps72200@gmail.com" class="dev-link">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,7 12,13 2,7"/></svg>
+            <span>sandeeps72200@gmail.com</span>
+          </a>
+          <a href="https://www.instagram.com/sandeepsingh_.75/" target="_blank" rel="noopener" class="dev-link">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+            <span>@sandeepsingh_.75</span>
+          </a>
+        </div>
       </div>
     </div>
   </div>
