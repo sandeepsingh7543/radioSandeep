@@ -63,6 +63,25 @@
   border: 0;
 }
 
+/* === DEVELOPER CREDIT === */
+.dev-credit {
+  position: fixed;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.08em;
+  z-index: 5;
+}
+
+.dev-name {
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 500;
+}
+
 /* === BASE === */
 html { height: 100%; }
 
@@ -704,12 +723,27 @@ body {
 }
 
 .speaker-grille.playing .speaker-cloth {
-  animation: speakerVibe 0.1s ease-in-out infinite alternate;
+  animation: speakerVibe 0.08s ease-in-out infinite alternate;
+}
+
+.speaker-grille.playing .grille-svg {
+  animation: speakerPulse 0.6s ease-in-out infinite;
+}
+
+.speaker-grille.playing {
+  box-shadow: inset 0 0 15px rgba(51, 255, 102, 0.03);
 }
 
 @keyframes speakerVibe {
-  from { transform: translateX(0) translateY(0); }
-  to { transform: translateX(0.2px) translateY(0.1px); }
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(0.4px, 0.2px) scale(1.001); }
+}
+
+@keyframes speakerPulse {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.003) translateX(0.3px); }
+  50% { transform: scale(0.998); }
+  75% { transform: scale(1.002) translateX(-0.2px); }
 }
 
 /* === YOUTUBE PLAYER (tiny, technically visible for browser policy) === */
@@ -1022,54 +1056,83 @@ body {
   text-transform: uppercase;
 }
 
-/* === PLAYLIST PANEL === */
-.playlist-panel {
-  max-height: 0;
-  overflow: hidden;
-  background: linear-gradient(180deg, rgba(10, 8, 4, 0.97) 0%, rgba(5, 4, 2, 0.99) 100%);
-  border-top: 1px solid rgba(255, 200, 100, 0.05);
-  position: relative;
-  z-index: 20;
-  transition: max-height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+/* === PLAYLIST OVERLAY (glass) === */
+.playlist-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
-.playlist-panel.open {
-  max-height: 260px;
+.playlist-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.playlist-card {
+  width: 88%;
+  max-height: 80%;
+  background: rgba(10, 15, 20, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 0 1px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: translateY(10px) scale(0.97);
+  transition: transform 0.3s ease;
+}
+
+.playlist-overlay.open .playlist-card {
+  transform: translateY(0) scale(1);
 }
 
 .playlist-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 16px 6px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 14px 18px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
 }
 
 .playlist-title {
   font-family: 'Courier Prime', monospace;
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   color: var(--crt-amber);
   letter-spacing: 0.2em;
-  text-shadow: 0 0 3px rgba(232, 156, 32, 0.2);
+  text-shadow: 0 0 4px rgba(232, 156, 32, 0.25);
 }
 
 .playlist-close {
-  background: none;
-  border: none;
-  color: var(--cream-dark);
-  font-size: 0.9rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--cream);
+  font-size: 0.85rem;
   cursor: pointer;
-  opacity: 0.5;
-  transition: opacity 0.2s;
-  padding: 4px 8px;
+  opacity: 0.6;
+  transition: opacity 0.2s, background 0.2s;
+  padding: 4px 10px;
+  border-radius: 4px;
 }
 
-.playlist-close:hover { opacity: 1; }
+.playlist-close:hover { opacity: 1; background: rgba(255, 255, 255, 0.1); }
 
 .playlist-items {
-  padding: 8px 16px 12px;
-  max-height: 200px;
+  padding: 8px 12px 14px;
   overflow-y: auto;
+  flex: 1;
+  max-height: 280px;
   scrollbar-width: thin;
   scrollbar-color: var(--brass-dark) transparent;
 }
@@ -1326,8 +1389,9 @@ body {
     height: 42px;
   }
 
-  .playlist-panel.open {
-    max-height: 220px;
+  .playlist-card {
+    width: 94%;
+    max-height: 70%;
   }
 }
 
@@ -1386,7 +1450,11 @@ body {
     transition: none;
   }
 
-  .playlist-panel {
+  .playlist-overlay {
+    transition: none;
+  }
+
+  .playlist-card {
     transition: none;
   }
 

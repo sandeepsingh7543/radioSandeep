@@ -98,7 +98,11 @@ function onStateChange(event) {
       player.unMute();
       player.setVolume(volume);
       startProgress();
-      setTimeout(updateNowPlaying, 600);
+      setTimeout(function () {
+        updateNowPlaying();
+        // Rebuild playlist if panel is open or first time
+        buildPlaylist();
+      }, 800);
       break;
 
     case YT.PlayerState.PAUSED:
@@ -245,7 +249,11 @@ function buildPlaylist() {
   if (!container) return;
 
   if (!pl || pl.length === 0) {
-    container.innerHTML = '<div class="playlist-empty">No tracks yet</div>';
+    container.innerHTML = '<div class="playlist-empty">Play a song first to load playlist</div>';
+    // Auto-retry after 2 seconds
+    setTimeout(function () {
+      if (playlistOpen) buildPlaylist();
+    }, 2000);
     return;
   }
 

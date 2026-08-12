@@ -190,14 +190,16 @@
         </div>
       </div>
 
-      <!-- ===== PLAYLIST PANEL ===== -->
-      <div class="playlist-panel" id="playlistPanel" aria-label="Playlist" role="list">
-        <div class="playlist-header">
-          <span class="playlist-title">PLAYLIST</span>
-          <button class="playlist-close" id="btnPlaylistClose" aria-label="Close playlist">✕</button>
-        </div>
-        <div class="playlist-items" id="playlistItems">
-          <div class="playlist-empty">Loading playlist...</div>
+      <!-- ===== PLAYLIST PANEL (glass overlay) ===== -->
+      <div class="playlist-overlay" id="playlistPanel" aria-label="Playlist" role="list">
+        <div class="playlist-card">
+          <div class="playlist-header">
+            <span class="playlist-title">PLAYLIST</span>
+            <button class="playlist-close" id="btnPlaylistClose" aria-label="Close playlist">✕</button>
+          </div>
+          <div class="playlist-items" id="playlistItems">
+            <div class="playlist-empty">Play a song to load playlist</div>
+          </div>
         </div>
       </div>
 
@@ -216,6 +218,9 @@
       </div>
 
     </main>
+
+    <!-- Developer Credit -->
+    <div class="dev-credit">Developed by <span class="dev-name">Sandeep Singh</span></div>
   </div>
 
   <!-- YouTube IFrame API -->
